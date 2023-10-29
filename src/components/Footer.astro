@@ -1,0 +1,15 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+const today = new Date();
+---
+
+<footer class="h-[22vh] p-8 text-center">
+	<div class="mb-4">&copy; {today.getFullYear()} Cameron WiseOwl.</div>
+	<SocialLinks />
+</footer>
+<style>
+	footer {
+		background: linear-gradient(var(--grey-gradient)) no-repeat;
+		color: rgb(var(--grey));
+	}
+</style>

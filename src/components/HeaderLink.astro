@@ -1,0 +1,29 @@
+---
+interface Props {
+	href: string;
+	class?: string;
+	screenReader?: string;
+	target?: string;
+	rel?: string;
+};
+
+const { href, class: className, rel, screenReader, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+---
+<a rel={rel} href={href} class="transition inline-block px-2 py-4" class:list={[className, { active: isActive }]} {...props}>
+	{screenReader && <span class="sr-only" >{screenReader}</span>}
+	<slot />
+</a>
+<style>
+	a {
+		border-style: solid;
+		border-color: transparent;
+		border-width: 4px 0;
+	}
+	a.active {
+		font-weight: bolder;
+		border-bottom-color: var(--accent);
+	}
+</style>

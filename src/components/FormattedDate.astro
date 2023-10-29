@@ -1,0 +1,23 @@
+---
+interface Props {
+	date?: string;
+}
+
+const { date } = Astro.props;
+
+let isoDate = '';
+let localDate = '';
+
+if (date) {
+	let dateObj = new Date(date);
+	isoDate = dateObj.toISOString();
+	localDate = dateObj.toLocaleDateString('en-gb', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+}
+
+---
+
+<time datetime={isoDate}>{localDate}</time>

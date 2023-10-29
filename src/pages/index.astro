@@ -1,0 +1,49 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import GridItem from '../components/GridItem.astro';
+import ArrowDown from '../components/icons/ArrowDown.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<section class="h-screen items-center content-center flex flex-col p-8">
+			<a href="/" class="m-auto items-center content-center flex flex-col">
+				<img src="/logo.svg" alt="CamWiseOwl Logo" class="w-80">
+				<h1 class="text-center text-4xl lg:text-5xl font-light mt-8">Cameron WiseOwl</h1>
+			</a>
+			<a href="#main" class="mt-auto mx-auto mb-16" aria-label="Skip header"><ArrowDown /></a>
+		</section>
+
+		<main id="main" class="container p-8 mx-auto mb-4">
+			<div class="prose mb-8">
+				<h1>Hello there!</h1>
+				<p>I'm Cameron WiseOwl ~ Creative neurodivergent anxiety-riddled artsy code-goblin. Web Developer Extraodinaire currently working as a Digital Marketer for ASD Lighting PLC.</p>
+				<p>I like to build tools, integrations & APIs, automate processes & create funky bespoke features for websites in return for shinies. Then for fun I like to make silly little games and doodles.</p>
+				<p>☆.｡.:*･ﾟ☆.｡.:*･ﾟ☆.｡.:*･ﾟ☆.｡.:*･ﾟ☆.｡.:*･ﾟ☆.｡.:*･ﾟ☆</p>
+			</div>
+
+			<h2 class="mb-4 text-2xl font-bold">Recent Posts</h2>
+			<div class="gap-4 mb-4 grid grid-cols-1 md:grid-cols-2">
+				{
+					posts.slice(0, 4).map((post) => (
+						<GridItem {...post} />
+					))
+				}
+			</div>
+			<a class="text-lg underline underline-offset-4 decoration-2" href={`/blog`}>View More</a>
+		</main>
+		<Footer />
+	</body>
+</html>

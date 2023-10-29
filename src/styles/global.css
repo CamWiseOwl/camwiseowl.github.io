@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--accent: #07a2a4;
+	--accent-dark: #247d7e;
+	--black: 15, 18, 25;
+	--grey: 96, 115, 159;
+	--grey-light: 229, 233, 240;
+	--grey-dark: 34, 41, 57;
+	--grey-gradient: rgba(var(--grey-light), 50%), #fff;
+	--box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)
+}
+
+@font-face {
+	font-family: 'Nunito';
+	src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+body {
+	font-family: 'Nunito', sans-serif;
+	background: linear-gradient(var(--grey-gradient)) no-repeat;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	color: rgb(var(--grey-dark));
+	font-size: 20px;
+	line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+	body {
+		font-size: 18px;
+	}
+	main {
+		padding: 1em;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.prose > *:last-child {
+	margin-bottom: 0;
+}
+
+a {
+	transition: all 300ms;
+}
+a:hover {
+	color: var(--accent);
+}
+
+.form-input {
+	@apply w-full border rounded-md py-1 px-2 mb-2;
+}
+
+.form-button {
+	@apply form-input bg-cyan-700 border-cyan-800 text-white;
+}

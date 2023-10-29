@@ -1,0 +1,51 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GridItem from '../../components/GridItem.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+
+// if this breaks check https://docs.astro.build/en/guides/upgrade-to/v3/#removed-automatic-flattening-of-getstaticpathss-return-value
+export async function getStaticPaths({ paginate }: any) {
+	const posts = (await getCollection("blog")).sort(
+		(a, b) => (new Date(a.data.date)).valueOf() - (new Date(b.data.date)).valueOf()
+	);
+	return paginate(posts, { pageSize: 6 });
+}
+// All paginated data is passed on the "page" prop
+const { page } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			ul a:hover img {
+				box-shadow: var(--box-shadow);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main id="main" class="container p-8 mx-auto mb-4">
+			<h1 class="mb-4 text-2xl font-bold">Blog Posts - Page {page.currentPage}</h1>
+			<section class="mb-4">
+				<ul class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					{
+						page.data.map((post:any) => (
+							<li class="w-full"><GridItem {...post} /></li>
+						))
+					}
+				</ul>
+			</section>
+
+			<div class="flex">
+				<div class="w-1/2">{page.url.prev ? <a href={page.url.prev} class="text-lg underline underline-offset-4 decoration-2">Previous</a> : null}</div>
+				<div class="w-1/2 text-right">{page.url.next ? <a href={page.url.next} class="text-lg underline underline-offset-4 decoration-2">Next</a> : null}</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
