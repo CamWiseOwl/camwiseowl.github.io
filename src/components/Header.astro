@@ -9,12 +9,13 @@ import SocialLinks from './SocialLinks.astro';;
 	<nav class="container mx-auto flex items-center justify-between px-8">
 		<a href="/" class="items-center justify-items-center flex flex-row gap-4">
 			<img src="/logo.svg" alt="CamWiseOwl Logo" class="w-12">
-			<h1 class="text-center text-sm lg:text-xl font-light">{ SITE_TITLE }</h1>
+			<h1 class="text-center font-light">{ SITE_TITLE }</h1>
 		</a>
 		<div class="internal-links mt-auto">
-			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 		</div>
-		<SocialLinks />
+		<div class="portrait:hidden">
+			<SocialLinks />
+		</div>
 	</nav>
 </header>
