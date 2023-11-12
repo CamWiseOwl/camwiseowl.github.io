@@ -6,6 +6,7 @@ image: '../../assets/ales-krivec-4miBe6zg5r0-unsplash.jpg'
 ---
 
 <input id="prefix" placeholder="Prefix" class="form-input">
+<input id="suffix" placeholder="Suffix" class="form-input">
 <div class="kw-container"></div>
 <input class="add_btn form-button" type="button" onclick="addKW();" value="+">
 <input class="generate_btn form-button" type="button" onclick="generate();" value="Generate Permutations">
@@ -27,7 +28,7 @@ function createKW(i) {
 	newKW.id = "kw" + i;
 	newKW.type = "text";
 	newKW.placeholder = "Keyword List " + i;
-  newKW.className = "form-input";
+	newKW.className = "form-input";
 	document.querySelector(".kw-container").appendChild(newKW);
 	kwList.push(newKW);
 }
@@ -40,6 +41,7 @@ function generate() {
 	var lists = [];
 	var i = 0;
 	var prefix = document.querySelector('#prefix').value;
+	var suffix = document.querySelector('#suffix').value;
 
 	for (i = 0; i < kwList.length; ++i) {
 		lists.push(document.querySelector('#kw' + i).value.split(","));
@@ -48,7 +50,7 @@ function generate() {
 	var listResult = cartesian(lists);
 	var result = '';
 	for (i = 0; i < listResult.length; ++i) {
-		result += prefix + listResult[i].join("") + "\n";
+		result += prefix + listResult[i].join("") + suffix + "\n";
 	}
 
 	document.querySelector('.results').value = result;
